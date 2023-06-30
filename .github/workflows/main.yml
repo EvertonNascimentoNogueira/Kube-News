@@ -30,8 +30,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Autenticar o AWS CLI
-        run: echo "Configurar o AWS configure"
-      - name: Configuração do kubectl
-        run: echo "Configurar o kubectl"
-      - name: Deploy dos apps
-        run: echo "exec deploy dos apps"
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Configuração do Kubectl
+        shell: bash
+        run: |
+          aws eks update-kubeconfig --name eks-imersao --region us-east-1
+        
+      - name: Deploy das aplicações
+        uses: Azure/k8s-deploy@v4.9
+        with:
+          manifests: |
+            k8s/deploy-kube-news.yaml
+          images: |
+            evertonhub/kube-news:v${{ github.run_number }}
