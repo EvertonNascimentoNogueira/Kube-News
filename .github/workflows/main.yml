@@ -10,4 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Docker build kube-news
-        run: echo Docker build kube-news  
+        run: echo "Docker build kube-news"
+  CD:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Autenticar o AWS CLI
+        run: echo "Configurar o AWS configure"
+      - name: Configuração do kubectl
+        run: echo "Configurar o kubectl"
+      - name: Deploy dos apps
+        run: echo "exec deploy dos apps"
