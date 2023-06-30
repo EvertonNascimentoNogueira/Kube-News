@@ -21,7 +21,7 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            evertonhub/kube-news:v1
+            evertonhub/kube-news:v${{ github.run_number }}
             evertonhub/kube-news:latest
     
   CD:
