@@ -10,7 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Docker build kube-news
-        run: echo "Docker build kube-news"
+        uses: docker/build-push-action@v4.1.1
+        with:
+          context: ./src
+          file: ./scr/Dockerfile
+          push: true
+          tags:
+            evertonhub/kube-news:v1
+            evertonhub/kube-news:latest
+    
   CD:
     runs-on: ubuntu-latest
     needs: [CI]
